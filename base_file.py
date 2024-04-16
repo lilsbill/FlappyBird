@@ -13,10 +13,10 @@ windowHeight = 700
 
 windowSurface = pygame.display.set_mode((windowWidth,windowHeight), 0, 32)
 pygame.display.set_caption('BEGIN TEST')
-background_image = pygame.image.load("under_sea.jpeg").convert()
+background_image = pygame.image.load("images/under_sea.jpeg").convert()
 background_image = pygame.transform.scale(background_image, (windowWidth,windowHeight))
 
-ground_image = pygame.image.load("sand.png")
+ground_image = pygame.image.load("images/sand.png")
 
 scroll_speed = 1
 
