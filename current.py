@@ -10,10 +10,18 @@ win_height = 720
 win_width = 551
 window = pygame.display.set_mode((win_width, win_height))
 
+bird1 = pygame.image.load("image/fish.png")
+bird2 = pygame.image.load("image/fish_up.png")
+bird3 = pygame.image.load("image/fish_down.png")
+
+image_size = (50, 50)
+
+bird1 = pygame.transform.scale(bird1, image_size)
+bird2 = pygame.transform.scale(bird2, image_size)
+bird3 = pygame.transform.scale(bird3, image_size)
+
 # Images
-bird_images = [pygame.image.load("images/bird_down.png"),
-               pygame.image.load("images/bird_mid.png"),
-               pygame.image.load("images/bird_up.png")]
+bird_images = [bird1, bird2, bird3]
 skyline_image = pygame.image.load("images/background.png")
 ground_image = pygame.image.load("images/ground.png")
 top_pipe_image = pygame.image.load("images/pipe_top.png")
@@ -22,7 +30,7 @@ game_over_image = pygame.image.load("images/game_over.png")
 start_image = pygame.image.load("images/start.png")
 
 # Game
-scroll_speed = 1
+scroll_speed = 2
 bird_start_position = (100, 250)
 score = 0
 font = pygame.font.SysFont('Segoe', 26)
@@ -59,6 +67,8 @@ class Bird(pygame.sprite.Sprite):
 
         # Rotate Bird
         self.image = pygame.transform.rotate(self.image, self.vel * -7)
+        #self.image = pygame.transform.scale(self.image, (50,50))
+
 
         # User Input
         if user_input[pygame.K_SPACE] and not self.flap and self.rect.y > 0 and self.alive:
