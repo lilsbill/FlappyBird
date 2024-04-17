@@ -73,7 +73,7 @@ class Bird(pygame.sprite.Sprite):
         # User Input
         if user_input[pygame.K_SPACE] and not self.flap and self.rect.y > 0 and self.alive:
             self.flap = True
-            self.vel = -7
+            self.vel = -5
 
 
 class Pipe(pygame.sprite.Sprite):

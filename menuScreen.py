@@ -3,10 +3,10 @@ import pygame
 pygame.init()
 
 #give some basics for the screen setup
-WHITE= (255, 255, 255)
-BLUE= (0, 0, 255)
-SCREEN_WIDTH=800
-SCREEN_HEIGHT=600
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 
 #set up screen
 SCREEN=pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -30,7 +30,7 @@ while run:
 
         for event in pygame.event.get():
             if event.type== pygame.QUIT:
-                run= False
+                run = False
         pygame.display.update()
 pygame.quit
 
