@@ -11,8 +11,8 @@ win_width = 551
 window = pygame.display.set_mode((win_width, win_height))
 
 bird1 = pygame.image.load("image/fish.png")
-bird2 = pygame.image.load("image/fish.png")
-bird3 = pygame.image.load("image/fish.png")
+bird2 = pygame.image.load("image/fish_up.png")
+bird3 = pygame.image.load("image/fish_down.png")
 
 image_size = (50, 50)
 
@@ -30,7 +30,7 @@ game_over_image = pygame.image.load("images/game_over.png")
 start_image = pygame.image.load("images/start.png")
 
 # Game
-scroll_speed = 1
+scroll_speed = 2
 bird_start_position = (100, 250)
 score = 0
 font = pygame.font.SysFont('Segoe', 26)
