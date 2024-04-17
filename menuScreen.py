@@ -32,6 +32,13 @@ while run:
             if event.type== pygame.QUIT:
                 run= False
         pygame.display.update()
+
+        user_input = pygame.key.get_pressed()
+        if user_input[pygame.K_SPACE]:
+            main()
+
+        pygame.display.update()
+        
 pygame.quit
 
 
