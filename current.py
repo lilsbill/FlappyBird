@@ -1,9 +1,12 @@
 import pygame
 from sys import exit
 import random
+from menuScreen import new_menu
 
 pygame.init()
 clock = pygame.time.Clock()
+
+menus = new_menu()
 
 # Window
 win_height = 720
@@ -208,20 +211,27 @@ def menu():
     while game_stopped:
         quit_game()
 
-        # Draw Menu
         window.fill((0, 0, 0))
-        window.blit(skyline_image, (0, 0))
-        window.blit(ground_image, Ground(0, 520))
-        window.blit(bird_images[0], (100, 250))
-        window.blit(start_image, (win_width // 2 - start_image.get_width() // 2,
-                                  win_height // 2 - start_image.get_height() // 2))
+        input_user = pygame.key.get_pressed()
+        menus.run()
+        if input_user[pygame.K_SPACE]:
+            #main()
+            window.fill((0, 0, 0))
+            window.blit(skyline_image, (0, 0))
+            window.blit(ground_image, Ground(0, 520))
+            window.blit(bird_images[0], (100, 250))
+            window.blit(start_image, (win_width // 2 - start_image.get_width() // 2,
+                                    win_height // 2 - start_image.get_height() // 2))
 
+        # Draw Menu
         # User Input
         user_input = pygame.key.get_pressed()
         if user_input[pygame.K_SPACE]:
             main()
+            
 
         pygame.display.update()
+
 
 
 menu()
