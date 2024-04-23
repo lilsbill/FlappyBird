@@ -212,9 +212,9 @@ def menu():
         quit_game()
 
         window.fill((0, 0, 0))
-        input_user = pygame.key.get_pressed()
-        menus.run()
-        if input_user[pygame.K_SPACE]:
+        #input_user = pygame.key.get_pressed()
+        new_input = menus.run()
+        if new_input == 2:
             #main()
             window.fill((0, 0, 0))
             window.blit(skyline_image, (0, 0))

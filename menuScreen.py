@@ -29,28 +29,29 @@ class new_menu():
     def run(self):
         run = True
         while run:
-                self.SCREEN.fill(self.white)
+            self.SCREEN.fill(self.white)
 
-                self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 250)
+            self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 250)
 
-                for event in pygame.event.get():
-                    if event.type== pygame.QUIT:
-                        run = False
+            for event in pygame.event.get():
+                if event.type== pygame.QUIT:
+                    run = False
                 pygame.display.update()
 
                 user_input = pygame.key.get_pressed()
                 if user_input[pygame.K_SPACE]:
-                    main()
+                    #main()
+                    return 2
 
                 pygame.display.update()
                 
         pygame.quit
 
-def main():
-    pygame.display.set_caption("again?")
+#def main():
+    #pygame.display.set_caption("again?")
 
-menu = new_menu()
-menu.run()
+#menu = new_menu()
+#menu.run()
 
 
 
