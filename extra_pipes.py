@@ -34,6 +34,9 @@ top_pipe_image = pygame.image.load("images/pipe_top.png")
 bottom_pipe_image = pygame.image.load("images/pipe_bottom.png")
 game_over_image = pygame.image.load("images/game_over.png")
 start_image = pygame.image.load("images/start.png")
+extra_pipe_top = pygame.image.load("image/pipe_top.png")
+extra_pipe_bottom = pygame.image.load("image/pipe_bottom.png")
+
 
 # Game
 scroll_speed = 2
@@ -212,8 +215,18 @@ def main():
             x_top, x_bottom = 1200, 1200
             y_top = random.randint(-600, -480)
             y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
-            pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
-            pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
+            
+            random_value = random.randint(1, 2)
+
+            if random_value == 1:
+                pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
+                pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
+            else:
+                pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top'))
+                pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom'))
+
+            #pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
+            #pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
             pipe_timer = random.randint(180, 250)
         pipe_timer -= 1
 

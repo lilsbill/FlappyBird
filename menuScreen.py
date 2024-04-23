@@ -31,7 +31,8 @@ class new_menu():
         while run:
             self.SCREEN.fill(self.white)
 
-            self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 250)
+            self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 350)
+            self.draw_text("When you are ready...", self.font, self.TEXT_COL, 250, 250)
 
             for event in pygame.event.get():
                 if event.type== pygame.QUIT:
