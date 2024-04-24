@@ -37,6 +37,16 @@ start_image = pygame.image.load("images/start.png")
 extra_pipe_top = pygame.image.load("image/pipe_top.png")
 extra_pipe_bottom = pygame.image.load("image/pipe_bottom.png")
 
+pipe_bottom_blue = pygame.image.load("pipes/pipe_b_blue.png")
+pipe_top_blue = pygame.image.load("pipes/pipe_t_blue.png")
+
+pipe_bottom_orange = pygame.image.load("pipes/pipe_b_orange.png")
+pipe_top_orange = pygame.image.load("pipes/pipe_t_orange.png")
+
+pipe_bottom_yellow = pygame.image.load("pipes/pipe_b_yellow.png")
+pipe_top_yellow = pygame.image.load("pipes/pipe_t_yellow.png")
+
+
 
 # Game
 scroll_speed = 2
