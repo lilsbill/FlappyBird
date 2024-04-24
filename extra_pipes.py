@@ -226,14 +226,23 @@ def main():
             y_top = random.randint(-600, -480)
             y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
             
-            random_value = random.randint(1, 2)
+            random_value = random.randint(1, 5)
 
             if random_value == 1:
                 pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
                 pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
-            else:
+            elif random_value == 2:
                 pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top'))
                 pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom'))
+            elif random_value == 3:
+                pipes.add(Pipe(x_top, y_top, pipe_top_blue, 'top'))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_blue, 'bottom'))
+            elif random_value == 4:
+                pipes.add(Pipe(x_top, y_top, pipe_top_orange, 'top'))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_orange, 'bottom'))
+            elif random_value == 5:
+                pipes.add(Pipe(x_top, y_top, pipe_top_yellow, 'top'))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_yellow, 'bottom'))
 
             #pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
             #pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
