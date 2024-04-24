@@ -223,8 +223,10 @@ def main():
         if pipe_timer <= 0 and bird.sprite.alive:
             #x_top, x_bottom = 550, 550
             x_top, x_bottom = 1200, 1200
-            y_top = random.randint(-600, -480)
-            y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
+            y_top = random.randint(-800, -480)
+            #y_top = random.randint(-600, -480)
+            y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
+            #y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
             
             random_value = random.randint(1, 5)
 
