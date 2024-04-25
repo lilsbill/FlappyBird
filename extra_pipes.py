@@ -96,13 +96,14 @@ class Bird(pygame.sprite.Sprite):
 
 
 class Pipe(pygame.sprite.Sprite):
-    def __init__(self, x, y, image, pipe_type):
+    def __init__(self, x, y, image, pipe_type, pipe_kind):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
         self.enter, self.exit, self.passed = False, False, False
         self.pipe_type = pipe_type
+        self.pipe_kind = pipe_kind
 
     def update(self):
         # Move Pipe
@@ -211,7 +212,25 @@ def main():
         collision_pipes = pygame.sprite.spritecollide(bird.sprites()[0], pipes, False)
         collision_ground = pygame.sprite.spritecollide(bird.sprites()[0], ground, False)
         if collision_pipes or collision_ground:
-            bird.sprite.alive = False
+
+            for pipe in collision_pipes:
+                if pipe.pipe_kind == 1:
+                    bird.sprite.alive = False
+            
+                elif pipe.pipe_kind == 2:
+                    scroll_speed = 4
+                
+                elif pipe.pipe_kind == 3:
+                    scroll_speed = 5
+
+                elif pipe.pipe_kind == 4:
+                    scroll_speed = 6
+                
+                elif pipe.pipe_kind == 5:
+                    scroll_speed = 7
+            #bird.sprite.alive = False
+
+
             if collision_ground:
                 window.blit(game_over_image, (win_width // 2 - game_over_image.get_width() // 2,
                                               win_height // 2 - game_over_image.get_height() // 2))
@@ -228,23 +247,31 @@ def main():
             y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
             #y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
             
-            random_value = random.randint(1, 5)
+            if score < 3:
+                random_value = 1
+            else:
+                random_value = random.randint(1, 5)
+
+            pipe_kind = random_value
+
+
+            #random_value = random.randint(1, 5)
 
             if random_value == 1:
-                pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
-                pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
+                pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top', 1))
+                pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom', 1))
             elif random_value == 2:
-                pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top'))
-                pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom'))
+                pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top',2))
+                pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom', 2))
             elif random_value == 3:
-                pipes.add(Pipe(x_top, y_top, pipe_top_blue, 'top'))
-                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_blue, 'bottom'))
+                pipes.add(Pipe(x_top, y_top, pipe_top_blue, 'top', 3))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_blue, 'bottom', 3))
             elif random_value == 4:
-                pipes.add(Pipe(x_top, y_top, pipe_top_orange, 'top'))
-                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_orange, 'bottom'))
+                pipes.add(Pipe(x_top, y_top, pipe_top_orange, 'top', 4))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_orange, 'bottom', 4))
             elif random_value == 5:
-                pipes.add(Pipe(x_top, y_top, pipe_top_yellow, 'top'))
-                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_yellow, 'bottom'))
+                pipes.add(Pipe(x_top, y_top, pipe_top_yellow, 'top', 5))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_yellow, 'bottom', 5))
 
             #pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
             #pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
