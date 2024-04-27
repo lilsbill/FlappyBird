@@ -13,11 +13,15 @@ win_height = 720
 win_width = 1200
 window = pygame.display.set_mode((win_width, win_height))
 
-bird1 = pygame.image.load("image/fish.png")
-bird2 = pygame.image.load("image/fish_up.png")
-bird3 = pygame.image.load("image/fish_down.png")
+#bird1 = pygame.image.load("image/fish.png")
+#bird2 = pygame.image.load("image/fish_up.png")
+#bird3 = pygame.image.load("image/fish_down.png")
 
-image_size = (50, 50)
+bird1 = pygame.image.load("image/fishy.png")
+bird2 = pygame.image.load("image/fishy.png")
+bird3 = pygame.image.load("image/fishy.png")
+
+image_size = (300, 100)
 
 bird1 = pygame.transform.scale(bird1, image_size)
 bird2 = pygame.transform.scale(bird2, image_size)
@@ -76,7 +80,7 @@ class Bird(pygame.sprite.Sprite):
         self.image = bird_images[self.image_index // 10]
 
         # Gravity and Flap
-        self.vel += 0.5
+        self.vel += .5
         if self.vel > 7:
             self.vel = 7
         if self.rect.y < 500:
@@ -92,7 +96,7 @@ class Bird(pygame.sprite.Sprite):
         # User Input
         if user_input[pygame.K_SPACE] and not self.flap and self.rect.y > 0 and self.alive:
             self.flap = True
-            self.vel = -5
+            self.vel = -4
 
 
 class Pipe(pygame.sprite.Sprite):
@@ -218,16 +222,20 @@ def main():
                     bird.sprite.alive = False
             
                 elif pipe.pipe_kind == 2:
-                    scroll_speed = 4
+                    bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 4
                 
                 elif pipe.pipe_kind == 3:
-                    scroll_speed = 5
+                    bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 5
 
                 elif pipe.pipe_kind == 4:
-                    scroll_speed = 6
+                    bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 6
                 
                 elif pipe.pipe_kind == 5:
-                    scroll_speed = 7
+                    bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 7
             #bird.sprite.alive = False
 
 
@@ -248,9 +256,10 @@ def main():
             #y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
             
             if score < 3:
-                random_value = 1
+                random_value = random.randint(2, 5)
+                #random_value = 1
             else:
-                random_value = random.randint(1, 5)
+                random_value = random.randint(2, 5)
 
             pipe_kind = random_value
 
