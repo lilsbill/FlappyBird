@@ -202,8 +202,12 @@ def main():
             if collision_ground:
                 window.blit(game_over_image, (win_width // 2 - game_over_image.get_width() // 2,
                                               win_height // 2 - game_over_image.get_height() // 2))
+                pygame.display.update()
+                    
                 if user_input[pygame.K_r]:
                     score = 0
+                    main()
+                else:
                     break
 
         # Spawn Pipes
