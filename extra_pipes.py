@@ -13,11 +13,15 @@ win_height = 720
 win_width = 1200
 window = pygame.display.set_mode((win_width, win_height))
 
-bird1 = pygame.image.load("image/fish.png")
-bird2 = pygame.image.load("image/fish_up.png")
-bird3 = pygame.image.load("image/fish_down.png")
+#bird1 = pygame.image.load("image/fish.png")
+#bird2 = pygame.image.load("image/fish_up.png")
+#bird3 = pygame.image.load("image/fish_down.png")
 
-image_size = (50, 50)
+bird1 = pygame.image.load("image/fishy.png")
+bird2 = pygame.image.load("image/fishy.png")
+bird3 = pygame.image.load("image/fishy.png")
+
+image_size = (130, 100)
 
 bird1 = pygame.transform.scale(bird1, image_size)
 bird2 = pygame.transform.scale(bird2, image_size)
@@ -30,13 +34,58 @@ skyline_image = pygame.transform.scale(skyline, (win_width, win_height))
 bird_images = [bird1, bird2, bird3]
 #skyline_image = pygame.image.load("image/background.jpeg")
 ground_image = pygame.image.load("images/ground.png")
-top_pipe_image = pygame.image.load("images/pipe_top.png")
-bottom_pipe_image = pygame.image.load("images/pipe_bottom.png")
+#top_pipe_image = pygame.image.load("images/pipe_top.png")
+#bottom_pipe_image = pygame.image.load("images/pipe_bottom.png")
+
+#top_pipe_image = pygame.image.load("image/coral_top.png")
+#bottom_pipe_image = pygame.image.load("image/coral_bottom.png")
+
+pipe_width = 52
+pipe_height = 800
+
+
+#scaling pipes
+
+pipe_coral_top = pygame.image.load("image/coral_top.png")
+pipe_coral_bottom = pygame.image.load("image/coral_bottom.png")
+
+top_pipe_image = pygame.transform.scale(pipe_coral_top, (pipe_width, pipe_height))
+bottom_pipe_image = pygame.transform.scale(pipe_coral_bottom, (pipe_width, pipe_height))
+
+
+#top_pipe_image = pygame.image.load("image/coral_top.png")
+#bottom_pipe_image = pygame.image.load("image/coral_bottom.png")
+#
+
 game_over_image = pygame.image.load("images/game_over.png")
 start_image = pygame.image.load("images/start.png")
 
+#
+
+#new_pipe_top = pygame.image.load("image/pipe_top.png")
+#new_pipe_bottom = pygame.image.load("image/pipe_bottom.png")
+
+#extra_pipe_top = pygame.transform.scale(new_pipe_top, (pipe_width, pipe_height))
+#extra_pipe_bottom = pygame.transform.scale(new_pipe_bottom, (pipe_width, pipe_height))
+
+#
+
+extra_pipe_top = pygame.image.load("image/pipe_top.png")
+extra_pipe_bottom = pygame.image.load("image/pipe_bottom.png")
+
+pipe_bottom_blue = pygame.image.load("pipes/pipe_b_blue.png")
+pipe_top_blue = pygame.image.load("pipes/pipe_t_blue.png")
+
+pipe_bottom_orange = pygame.image.load("pipes/pipe_b_orange.png")
+pipe_top_orange = pygame.image.load("pipes/pipe_t_orange.png")
+
+pipe_bottom_yellow = pygame.image.load("pipes/pipe_b_yellow.png")
+pipe_top_yellow = pygame.image.load("pipes/pipe_t_yellow.png")
+
+
+
 # Game
-scroll_speed = 2
+scroll_speed = 3
 bird_start_position = (100, 250)
 score = 0
 font = pygame.font.SysFont('Segoe', 26)
@@ -51,6 +100,8 @@ class Bird(pygame.sprite.Sprite):
         self.rect.center = bird_start_position
         self.image_index = 0
         self.vel = 0
+        self.flap_strength = -4
+        self.gravity = 0.1
         self.flap = False
         self.alive = True
 
@@ -63,13 +114,22 @@ class Bird(pygame.sprite.Sprite):
         self.image = bird_images[self.image_index // 10]
 
         # Gravity and Flap
-        self.vel += 0.5
-        if self.vel > 7:
-            self.vel = 7
-        if self.rect.y < 500:
+        #gravity = .3
+
+        #self.vel += gravity
+        #if self.vel > 7:
+        #    self.vel = 7
+        #if self.rect.y < 500:
+        #    self.rect.y += int(self.vel)
+        #if self.vel == 0:
+        #    self.flap = False
+
+        if self.alive:
+            self.vel += self.gravity  # Apply gravity
+            if self.flap:  # If flapping, counteract gravity with flap_strength
+                self.vel = self.flap_strength
+                self.flap = False
             self.rect.y += int(self.vel)
-        if self.vel == 0:
-            self.flap = False
 
         # Rotate Bird
         self.image = pygame.transform.rotate(self.image, self.vel * -7)
@@ -79,17 +139,18 @@ class Bird(pygame.sprite.Sprite):
         # User Input
         if user_input[pygame.K_SPACE] and not self.flap and self.rect.y > 0 and self.alive:
             self.flap = True
-            self.vel = -5
+            #self.vel = -4
 
 
 class Pipe(pygame.sprite.Sprite):
-    def __init__(self, x, y, image, pipe_type):
+    def __init__(self, x, y, image, pipe_type, pipe_kind):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
         self.enter, self.exit, self.passed = False, False, False
         self.pipe_type = pipe_type
+        self.pipe_kind = pipe_kind
 
     def update(self):
         # Move Pipe
@@ -198,7 +259,37 @@ def main():
         collision_pipes = pygame.sprite.spritecollide(bird.sprites()[0], pipes, False)
         collision_ground = pygame.sprite.spritecollide(bird.sprites()[0], ground, False)
         if collision_pipes or collision_ground:
-            bird.sprite.alive = False
+
+            for pipe in collision_pipes:
+                if pipe.pipe_kind == 1:
+                    bird.sprite.alive = False
+
+                elif pipe.pipe_kind == 2:
+                    #bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 4
+                    #bird.sprite.alive = False
+                    pass
+
+                elif pipe.pipe_kind == 3:
+                    #bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 5
+                    #bird.sprite.alive = False
+                    pass
+
+                elif pipe.pipe_kind == 4:
+                    #bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 6
+                    #bird.sprite.alive = False
+                    pass
+                
+                elif pipe.pipe_kind == 5:
+                    #bird.sprites()[0].rect.x += 80
+                    #scroll_speed = 7
+                    #bird.sprite.alive = False
+                    pass
+            #bird.sprite.alive = False
+
+
             if collision_ground:
                 window.blit(game_over_image, (win_width // 2 - game_over_image.get_width() // 2,
                                               win_height // 2 - game_over_image.get_height() // 2))
@@ -210,10 +301,40 @@ def main():
         if pipe_timer <= 0 and bird.sprite.alive:
             #x_top, x_bottom = 550, 550
             x_top, x_bottom = 1200, 1200
-            y_top = random.randint(-600, -480)
-            y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
-            pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
-            pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
+            y_top = random.randint(-800, -480)
+            #y_top = random.randint(-600, -480)
+            y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
+            #y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
+            
+            if score < 3:
+                random_value = random.randint(1, 5)
+                #random_value = 1
+            else:
+                random_value = random.randint(1, 5)
+
+            pipe_kind = random_value
+
+
+            #random_value = random.randint(1, 5)
+
+            if random_value == 1:
+                pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top', 1))
+                pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom', 1))
+            elif random_value == 2:
+                pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top',2))
+                pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom', 2))
+            elif random_value == 3:
+                pipes.add(Pipe(x_top, y_top, pipe_top_blue, 'top', 3))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_blue, 'bottom', 3))
+            elif random_value == 4:
+                pipes.add(Pipe(x_top, y_top, pipe_top_orange, 'top', 4))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_orange, 'bottom', 4))
+            elif random_value == 5:
+                pipes.add(Pipe(x_top, y_top, pipe_top_yellow, 'top', 5))
+                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_yellow, 'bottom', 5))
+
+            #pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
+            #pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
             pipe_timer = random.randint(180, 250)
         pipe_timer -= 1
 
