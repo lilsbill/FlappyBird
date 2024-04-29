@@ -21,6 +21,14 @@ class new_menu():
         #sets color of text to blue
         self.TEXT_COL = (self.blue)
 
+    def help_menu(self):
+        self.SCREEN.fill(self.white)
+
+        coral_img = pygame.image.load("Menu_images/coral.jpeg")
+
+        self.SCREEN.blit(coral_img, (0,0))
+
+
     #function for the text on the screen
     def draw_text(self, text, font, TEXT_COL, x, y):
         img = font.render(text, True, TEXT_COL)
@@ -29,15 +37,28 @@ class new_menu():
     def run(self):
         run = True
         while run:
-            self.SCREEN.fill(self.white)
+            #self.SCREEN.fill(self.white)
 
-            self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 350)
-            self.draw_text("When you are ready...", self.font, self.TEXT_COL, 250, 250)
+            #self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 350)
+            #self.draw_text("When you are ready...", self.font, self.TEXT_COL, 250, 250)
 
             for event in pygame.event.get():
                 if event.type== pygame.QUIT:
                     run = False
                 pygame.display.update()
+
+                background_img = pygame.image.load("Menu_images/main.jpeg")
+
+                self.SCREEN.blit(background_img, (0,0))
+
+                user_input = pygame.key.get_pressed()
+                if user_input[pygame.K_SPACE]:
+                    #main()
+                    return 2
+
+                play_input = pygame.key.get_pressed()
+                if play_input[pygame.K_x]:
+                    return 2
 
                 user_input = pygame.key.get_pressed()
                 if user_input[pygame.K_SPACE]:
