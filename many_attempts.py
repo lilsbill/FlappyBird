@@ -81,7 +81,7 @@ pipe_top_yellow = pygame.transform.scale(pipe_top_yellow, (pipe_width, pipe_heig
 scroll_speed = 3
 bird_start_position = (300, 250)
 score = 0
-font = pygame.font.SysFont('Segoe', 26)
+font = pygame.font.SysFont('Segoe', 50)
 game_stopped = True
 
 
@@ -287,9 +287,9 @@ def main():
             y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
             
             if score < 3:
-                random_value = random.randint(2, 2)
+                random_value = random.randint(1, 1)
             else:
-                random_value = random.randint(2, 2)
+                random_value = random.randint(1, 2)
 
             pipe_kind = random_value
 

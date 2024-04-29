@@ -37,7 +37,7 @@ class new_menu():
     def run(self):
         run = True
         while run:
-            self.SCREEN.fill(self.white)
+            #self.SCREEN.fill(self.white)
 
             #self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 350)
             #self.draw_text("When you are ready...", self.font, self.TEXT_COL, 250, 250)
@@ -58,7 +58,7 @@ class new_menu():
 
                 play_input = pygame.key.get_pressed()
                 if play_input[pygame.K_x]:
-                    self.help_menu()
+                    return 2
 
                 user_input = pygame.key.get_pressed()
                 if user_input[pygame.K_SPACE]:
