@@ -262,6 +262,11 @@ def main():
                     #bird.sprite.alive = False
                     #break
                 #scroll_speed = scroll_speed + 1
+            
+            if pipe.pipe_kind == 3:
+                if bird_rect.colliderect(pipe.rect):
+                    bird.sprites()[0].rect.y += 20
+                    
                 
             
         # Collision with ground
@@ -282,23 +287,45 @@ def main():
 
         # Spawn Pipes
         if pipe_timer <= 0 and bird.sprite.alive:
-            x_top, x_bottom = 1200, 1200
-            y_top = random.randint(-800, -480)
-            y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
+            #x_top, x_bottom = 1200, 1200
+            #y_top = random.randint(-800, -480)
+            #y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
             
-            if score < 3:
+            if score < 5:
                 random_value = random.randint(1, 1)
-            else:
+            elif score < 10:
                 random_value = random.randint(1, 2)
+            elif score < 15:
+                random_value = random.randint(1, 3)
 
             pipe_kind = random_value
 
             if random_value == 1:
+                x_top, x_bottom = 1200, 1200
+                y_top = random.randint(-800, -520)
+                y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
+
                 pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top', 1))
                 pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom', 1))
+
+
             elif random_value == 2:
-                pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top', 2))
-                pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom', 2))
+                pipe_num = random.randint(1, 2)
+
+                x_top, x_bottom = 1200, 1200
+
+                if pipe_num == 1:
+                    y_top = random.randint(-200, -30)
+                    pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top', 2))
+                else:
+                    y_bottom = random.randint(100, 300)
+                    pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom', 2))
+                #y_top = random.randint(-100, -20)
+                #y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
+
+                #pipes.add(Pipe(x_top, y_top, extra_pipe_top, 'top', 2))
+                #pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom', 2))
+
             elif random_value == 3:
                 pipes.add(Pipe(x_top, y_top, pipe_top_blue, 'top', 3))
                 pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_blue, 'bottom', 3))
