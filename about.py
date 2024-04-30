@@ -2,9 +2,7 @@ import pygame
 pygame.init()
 
 
-
-
-class coral():
+class about_new():
 
     def __init__(self):
         self.white = (255, 255, 255)
@@ -20,10 +18,16 @@ class coral():
         pygame.display.set_caption("Check?")
 
 
-        background_img = pygame.image.load("Menu_images/Coral.jpeg")
+        background_img = pygame.image.load("Menu_images/seaweed.jpeg")
 
         self.SCREEN.blit(background_img, (0,0))
 
-        play_input = pygame.key.get_pressed()
-        if play_input[pygame.K_x]:
-            return 2
+        pygame.display.update()
+
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_v:
+                   return  # Exit the loop if 'x' key is pressed
+
+        

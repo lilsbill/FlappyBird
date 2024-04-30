@@ -3,6 +3,15 @@ import pygame
 pygame.init()
 
 
+from play import coral
+
+play = coral()
+
+from about import about_new
+
+about = about_new()
+
+
 class new_menu():
 
     def __init__(self):
@@ -21,6 +30,9 @@ class new_menu():
         #sets color of text to blue
         self.TEXT_COL = (self.blue)
 
+        self.show_play_screen = False
+        self.show_about_screen = False
+
     def help_menu(self):
         self.SCREEN.fill(self.white)
 
@@ -34,38 +46,120 @@ class new_menu():
         img = font.render(text, True, TEXT_COL)
         self.SCREEN.blit(img, (x, y))
 
+    def basic(self):
+        background_img = pygame.image.load("Menu_images/main.jpeg")
+        self.SCREEN.blit(background_img, (0,0))
+
+    def input_menu(self):
+        run = True
+        while run: 
+            self.basic()
+            new_input = 0
+            for event in pygame.event.get():
+
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        return 2
+                    elif event.key == pygame.K_x:
+                        self.show_play_screen = True
+                        self.show_about_screen = False
+                    elif event.key == pygame.K_z:
+                        self.show_about_screen = True
+                        self.show_play_screen = False   
+                    
+                if self.show_play_screen:
+                    new_input = play.run_text()
+                elif self.show_about_screen:
+                    new_input = about.run_text()
+
+                if new_input == 2:
+                    self.show_play_screen = False
+                    self.show_about_screen = False
+                
+                pygame.display.update()
+            
+        
+
     def run(self):
         run = True
         while run:
-            #self.SCREEN.fill(self.white)
-
-            #self.draw_text("Press SPACE to begin!", self.font, self.TEXT_COL, 250, 350)
-            #self.draw_text("When you are ready...", self.font, self.TEXT_COL, 250, 250)
+            background_img = pygame.image.load("Menu_images/main.jpeg")
+            self.SCREEN.blit(background_img, (0,0))
 
             for event in pygame.event.get():
-                if event.type== pygame.QUIT:
+                if event.type == pygame.QUIT:
                     run = False
-                pygame.display.update()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        return 2
+                    elif event.key == pygame.K_x:
+                        #self.show_play_screen = True
+                        #self.show_about_screen = False
 
-                background_img = pygame.image.load("Menu_images/main.jpeg")
+                        self.SCREEN.fill(self.white)
 
-                self.SCREEN.blit(background_img, (0,0))
+                        pygame.display.set_caption("Check?")
 
-                user_input = pygame.key.get_pressed()
-                if user_input[pygame.K_SPACE]:
-                    #main()
-                    return 2
 
-                play_input = pygame.key.get_pressed()
-                if play_input[pygame.K_x]:
-                    return 2
+                        background_img = pygame.image.load("Menu_images/Coral.jpeg")
 
-                user_input = pygame.key.get_pressed()
-                if user_input[pygame.K_SPACE]:
-                    #main()
-                    return 2
+                        self.SCREEN.blit(background_img, (0,0))
 
-                pygame.display.update()
+                        pygame.display.update()
+
+                        running = True
+                        while running:
+                            for event in pygame.event.get():
+                                if event.type == pygame.KEYDOWN and event.key == pygame.K_v:
+                                    background_img = pygame.image.load("Menu_images/main.jpeg")
+                                    self.SCREEN.blit(background_img, (0,0))
+                                    return  # Exit the loop if 'x' key is pressed
+
+                    elif event.key == pygame.K_z:
+                        self.SCREEN.fill(self.white)
+
+                        pygame.display.set_caption("Check?")
+
+
+                        background_img = pygame.image.load("Menu_images/seaweed.jpeg")
+
+                        self.SCREEN.blit(background_img, (0,0))
+
+                        pygame.display.update()
+
+                        running = True
+                        while running:
+                            for event in pygame.event.get():
+                                if event.type == pygame.KEYDOWN and event.key == pygame.K_y:
+                                    background_img = pygame.image.load("Menu_images/seaweed.jpeg")
+                                    self.SCREEN.blit(background_img, (0,0))
+                                    break
+                                elif event.type == pygame.KEYDOWN and event.key == pygame.K_v:
+                                    background_img = pygame.image.load("Menu_images/main.jpeg")
+                                    self.SCREEN.blit(background_img, (0,0))
+                                    return  # Exit the loop if 'x' key is pressed
+
+
+                elif event.type == pygame.KEYUP:
+                    pass  # You can handle key releases here if needed
+
+            new_input = 0
+
+            if self.show_play_screen:
+                new_input = play.run_text()
+            elif self.show_about_screen:
+                new_input = about.run_text()
+
+            if new_input == 2:
+                self.show_play_screen = False
+                self.show_about_screen = False
+
+
+            pygame.display.update()   
                 
         pygame.quit
 
