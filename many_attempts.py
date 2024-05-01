@@ -54,6 +54,8 @@ start_image = pygame.image.load("images/start.png")
 #extra_pipe_bottom = pygame.image.load("image/pipe_bottom.png")
 pipe_bottom_blue = pygame.image.load("pipes/pipe_b_blue.png")
 pipe_top_blue = pygame.image.load("pipes/pipe_t_blue.png")
+
+
 pipe_bottom_orange = pygame.image.load("pipes/pipe_b_orange.png")
 pipe_top_orange = pygame.image.load("pipes/pipe_t_orange.png")
 pipe_bottom_yellow = pygame.image.load("pipes/pipe_b_yellow.png")
@@ -62,6 +64,19 @@ pipe_top_yellow = pygame.image.load("pipes/pipe_t_yellow.png")
 
 extra_pipe_top = pygame.image.load("pipe/seaweed_top.png")
 extra_pipe_bottom = pygame.image.load("pipe/seaweed_btm.png")
+
+bubble_top = pygame.image.load("pipe/bubble_top.png")
+bubble_btm = pygame.image.load("pipe/bubble_btm.png")
+
+bubble_top = pygame.transform.scale(bubble_top, (150, 400))
+bubble_btm = pygame.transform.scale(bubble_btm, (150, 400))
+
+clam_open = pygame.image.load("pipe/clam_open.png")
+clam_closed = pygame.image.load("pipe/clam_closed.png")
+
+clam_open = pygame.transform.scale(clam_open, (250, 250))
+clam_closed = pygame.transform.scale(clam_closed, (250, 250))
+
 
 
 top_pipe_image = pygame.transform.scale(pipe_coral_top, (pipe_width, pipe_height))
@@ -265,7 +280,16 @@ def main():
             
             if pipe.pipe_kind == 3:
                 if bird_rect.colliderect(pipe.rect):
-                    bird.sprites()[0].rect.y += 20
+                    #bird.sprites()[0].rect.y += 20
+
+                    if pipe.pipe_type == "top":
+                        bird.sprites()[0].rect.y += 40
+                    elif pipe.pipe_type == "bottom":
+                        bird.sprites()[0].rect.y -= 40
+
+            if pipe.pipe_kind == 4:
+                if bird_rect.colliderect(pipe.rect):
+                    bird.sprites()[0].vel = 0
                     
                 
             
@@ -292,11 +316,11 @@ def main():
             #y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
             
             if score < 5:
-                random_value = random.randint(1, 1)
+                random_value = random.randint(4, 4)
             elif score < 10:
-                random_value = random.randint(1, 2)
+                random_value = random.randint(4, 4)
             elif score < 15:
-                random_value = random.randint(1, 3)
+                random_value = random.randint(4, 4)
 
             pipe_kind = random_value
 
@@ -327,11 +351,24 @@ def main():
                 #pipes.add(Pipe(x_bottom, y_bottom, extra_pipe_bottom, 'bottom', 2))
 
             elif random_value == 3:
-                pipes.add(Pipe(x_top, y_top, pipe_top_blue, 'top', 3))
-                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_blue, 'bottom', 3))
+                pipe_num = random.randint(1, 2)
+
+                x_top, x_bottom = 1200, 1200
+
+                if pipe_num == 1:
+                    y_top = random.randint(-200, -30)
+                    pipes.add(Pipe(x_top, y_top, bubble_top, 'top', 3))
+                else:
+                    y_bottom = random.randint(100, 300)
+                    pipes.add(Pipe(x_bottom, y_bottom, bubble_btm, 'bottom', 3))
+
+
             elif random_value == 4:
-                pipes.add(Pipe(x_top, y_top, pipe_top_orange, 'top', 4))
-                pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_orange, 'bottom', 4))
+                x_top, x_bottom = 1200, 1200
+                y_bottom = random.randint(100, 300)
+
+                #pipes.add(Pipe(x_top, y_top, pipe_top_orange, 'top', 4))
+                pipes.add(Pipe(x_bottom, y_bottom, clam_open, 'bottom', 4))
             elif random_value == 5:
                 pipes.add(Pipe(x_top, y_top, pipe_top_yellow, 'top', 5))
                 pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_yellow, 'bottom', 5))
