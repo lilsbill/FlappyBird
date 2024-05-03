@@ -8,6 +8,10 @@ clock = pygame.time.Clock()
 
 menus = new_menu()
 
+freeze_game = False
+
+hit_4th_pipe = False
+
 # Window
 win_height = 720
 win_width = 1200
@@ -44,6 +48,9 @@ ground_image = pygame.image.load("images/ground.png")
 pipe_width = 200
 pipe_height = 800
 
+clam_x = 0
+clam_y = 0
+
 
 
 pipe_coral_top = pygame.image.load("pipe/pipes_top.png")
@@ -74,8 +81,15 @@ bubble_btm = pygame.transform.scale(bubble_btm, (150, 400))
 clam_open = pygame.image.load("pipe/clam_open.png")
 clam_closed = pygame.image.load("pipe/clam_closed.png")
 
+#clam_open = pygame.image.load("pipe/clam_open.png")
+#clam_closed = pygame.image.load("pipe/clam_closed.png")
+
+
 clam_open = pygame.transform.scale(clam_open, (250, 250))
 clam_closed = pygame.transform.scale(clam_closed, (250, 250))
+
+#clam_closed = pygame.transform.scale(clam_open, (250, 250))
+#clam_open = pygame.transform.scale(clam_closed, (250, 250))
 
 
 
@@ -204,10 +218,18 @@ def quit_game():
 def main():
     global score
     global scroll_speed
+    global game_stopped
+    global freeze_game
+    global clam_x
+    global clam_y
+    global hit_4th_pipe
 
     # Instantiate Bird
     bird = pygame.sprite.GroupSingle()
     bird.add(Bird())
+
+    
+    timer = 300
 
     # Setup Pipes
     pipe_timer = 0
@@ -223,6 +245,10 @@ def main():
     while run:
         # Quit
         quit_game()
+
+        timer -= 1
+        if timer == 0:
+            timer = 300
 
         # Reset Frame
         window.fill((0, 0, 0))
@@ -253,13 +279,21 @@ def main():
 
         # Show Score
         score_text = font.render('Score: ' + str(score), True, pygame.Color(255, 255, 255))
+        timer_text = font.render('Timer: ' + str(timer), True, pygame.Color(255, 255, 255))
+
         window.blit(score_text, (20, 20))
+        window.blit(timer_text, (300, 20))
 
         # Update - Pipes, Ground and Bird
-        if bird.sprite.alive:
+        if bird.sprite.alive and not freeze_game:
             pipes.update()
             ground.update()
         bird.update(user_input)
+
+        #if freeze_game:
+
+        #    pygame.display.update()
+        #    pygame.time.wait(3000)
 
         # Collision Detection
         bird_rect = bird.sprites()[0].rect
@@ -290,6 +324,23 @@ def main():
             if pipe.pipe_kind == 4:
                 if bird_rect.colliderect(pipe.rect):
                     bird.sprites()[0].vel = 0
+                    newx = pipe.rect.x
+                    newy = pipe.rect.y
+
+
+                    if timer < 20:
+                        #freeze_game = True 
+                        
+                        #pygame.time.wait(3000)  # Wait for 3 seconds
+                        #pygame.display.update()
+                        #pipe.image = clam_closed
+                        #pygame.display.update()
+                        #pygame.time.wait(3000)
+                        bird.sprites()[0].alive = False
+                        hit_4th_pipe = True
+                        
+                    else:
+                        pipe.image = clam_open
                     
                 
             
@@ -300,9 +351,26 @@ def main():
 
         # Handle game over
         if not bird.sprite.alive:
-            window.blit(game_over_image, (win_width // 2 - game_over_image.get_width() // 2,
-                                          win_height // 2 - game_over_image.get_height() // 2))
+           # newx = pipe.rect.x
+            #newy = pipe.rect.y
+            #print("Clam Position:", clam_x, clam_y)
+            if hit_4th_pipe:
+                window.blit(clam_closed, (newx, newy))  # Blit the clam_open image after the game over screen
+                hit_4th_pipe = False
+
+
+
             pygame.display.update()
+            pygame.time.wait(3000)
+
+            window.blit(game_over_image, (win_width // 2 - game_over_image.get_width() // 2,
+                                  win_height // 2 - game_over_image.get_height() // 2))
+            pygame.display.update()
+              # Wait for 3 seconds
+
+            
+
+            pygame.time.wait(3000) 
             if user_input[pygame.K_r]:
                 score = 0
                 main()
@@ -367,8 +435,13 @@ def main():
                 x_top, x_bottom = 1200, 1200
                 y_bottom = random.randint(100, 300)
 
+                clam_y = y_bottom
+                clam_x = x_bottom
+
                 #pipes.add(Pipe(x_top, y_top, pipe_top_orange, 'top', 4))
                 pipes.add(Pipe(x_bottom, y_bottom, clam_open, 'bottom', 4))
+
+            
             elif random_value == 5:
                 pipes.add(Pipe(x_top, y_top, pipe_top_yellow, 'top', 5))
                 pipes.add(Pipe(x_bottom, y_bottom, pipe_bottom_yellow, 'bottom', 5))
