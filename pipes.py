@@ -69,3 +69,22 @@ elif pipe.pipe_kind == 2:
                     #scroll_speed = 7
                     #bird.sprite.alive = False
                     pass
+
+
+
+ #self.SCREEN.fill(self.white)
+
+        #pygame.display.set_caption("Check?")
+
+
+        #background_img = pygame.image.load("Menu_images/seaweed.jpeg")
+
+        #self.SCREEN.blit(background_img, (0,0))
+
+        #pygame.display.update()
+
+        #running = True
+        #while running:
+        #    for event in pygame.event.get():
+        #        if event.type == pygame.KEYDOWN and event.key == pygame.K_v:
+        #           return  # Exit the loop if 'x' key is pressed                   

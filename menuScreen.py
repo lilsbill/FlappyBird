@@ -120,6 +120,9 @@ class new_menu():
                                     return  # Exit the loop if 'x' key is pressed
 
                     elif event.key == pygame.K_z:
+                        about.run_text()
+
+                    elif event.key == pygame.K_y:
                         self.SCREEN.fill(self.white)
 
                         pygame.display.set_caption("Check?")
