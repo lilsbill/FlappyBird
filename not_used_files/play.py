@@ -20,7 +20,7 @@ class coral():
         pygame.display.set_caption("Check?")
 
 
-        background_img = pygame.image.load("Menu_images/Coral.jpeg")
+        background_img = pygame.image.load("Menu_images/new.jpg")
 
         self.SCREEN.blit(background_img, (0,0))
 

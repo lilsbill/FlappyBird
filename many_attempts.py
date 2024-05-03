@@ -59,14 +59,14 @@ game_over_image = pygame.image.load("images/game_over.png")
 start_image = pygame.image.load("images/start.png")
 #extra_pipe_top = pygame.image.load("image/pipe_top.png")
 #extra_pipe_bottom = pygame.image.load("image/pipe_bottom.png")
-pipe_bottom_blue = pygame.image.load("pipes/pipe_b_blue.png")
-pipe_top_blue = pygame.image.load("pipes/pipe_t_blue.png")
+#pipe_bottom_blue = pygame.image.load("pipes/pipe_b_blue.png")
+#pipe_top_blue = pygame.image.load("pipes/pipe_t_blue.png")
 
 
-pipe_bottom_orange = pygame.image.load("pipes/pipe_b_orange.png")
-pipe_top_orange = pygame.image.load("pipes/pipe_t_orange.png")
-pipe_bottom_yellow = pygame.image.load("pipes/pipe_b_yellow.png")
-pipe_top_yellow = pygame.image.load("pipes/pipe_t_yellow.png")
+#pipe_bottom_orange = pygame.image.load("pipes/pipe_b_orange.png")
+#pipe_top_orange = pygame.image.load("pipes/pipe_t_orange.png")
+#pipe_bottom_yellow = pygame.image.load("pipes/pipe_b_yellow.png")
+#pipe_top_yellow = pygame.image.load("pipes/pipe_t_yellow.png")
 
 
 extra_pipe_top = pygame.image.load("pipe/seaweed_top.png")
@@ -97,12 +97,12 @@ top_pipe_image = pygame.transform.scale(pipe_coral_top, (pipe_width, pipe_height
 bottom_pipe_image = pygame.transform.scale(pipe_coral_bottom, (pipe_width, pipe_height))
 extra_pipe_top = pygame.transform.scale(extra_pipe_top, (100,400))
 extra_pipe_bottom = pygame.transform.scale(extra_pipe_bottom, (100,400))
-pipe_bottom_blue = pygame.transform.scale(pipe_bottom_blue, (pipe_width, pipe_height))
-pipe_top_blue = pygame.transform.scale(pipe_top_blue, (pipe_width, pipe_height))
-pipe_bottom_orange = pygame.transform.scale(pipe_bottom_orange, (pipe_width, pipe_height))
-pipe_top_orange = pygame.transform.scale(pipe_top_orange, (pipe_width, pipe_height))
-pipe_bottom_yellow = pygame.transform.scale(pipe_bottom_yellow, (pipe_width, pipe_height))
-pipe_top_yellow = pygame.transform.scale(pipe_top_yellow, (pipe_width, pipe_height))
+#pipe_bottom_blue = pygame.transform.scale(pipe_bottom_blue, (pipe_width, pipe_height))
+#pipe_top_blue = pygame.transform.scale(pipe_top_blue, (pipe_width, pipe_height))
+#pipe_bottom_orange = pygame.transform.scale(pipe_bottom_orange, (pipe_width, pipe_height))
+#pipe_top_orange = pygame.transform.scale(pipe_top_orange, (pipe_width, pipe_height))
+#pipe_bottom_yellow = pygame.transform.scale(pipe_bottom_yellow, (pipe_width, pipe_height))
+#pipe_top_yellow = pygame.transform.scale(pipe_top_yellow, (pipe_width, pipe_height))
 
 
 
@@ -279,7 +279,7 @@ def main():
 
         # Show Score
         score_text = font.render('Score: ' + str(score), True, pygame.Color(255, 255, 255))
-        timer_text = font.render('Timer: ' + str(timer), True, pygame.Color(255, 255, 255))
+        #timer_text = font.render('Timer: ' + str(timer), True, pygame.Color(255, 255, 255))
 
         window.blit(score_text, (20, 20))
         window.blit(timer_text, (300, 20))
@@ -361,7 +361,7 @@ def main():
 
 
             pygame.display.update()
-            pygame.time.wait(3000)
+            #pygame.time.wait(3000)
 
             window.blit(game_over_image, (win_width // 2 - game_over_image.get_width() // 2,
                                   win_height // 2 - game_over_image.get_height() // 2))
@@ -384,11 +384,13 @@ def main():
             #y_bottom = y_top + random.randint(200, 250) + bottom_pipe_image.get_height()
             
             if score < 5:
-                random_value = random.randint(4, 4)
+                random_value = random.randint(1, 1)
             elif score < 10:
-                random_value = random.randint(4, 4)
+                random_value = random.randint(1, 2)
             elif score < 15:
-                random_value = random.randint(4, 4)
+                random_value = random.randint(1, 3)
+            else:
+                random_value = random.randint(1, 4)
 
             pipe_kind = random_value
 

@@ -3,13 +3,13 @@ import pygame
 pygame.init()
 
 
-from play import coral
+#from play import coral
 
-play = coral()
+#play = coral()
 
-from about import about_new
+#from about import about_new
 
-about = about_new()
+#about = about_new()
 
 
 class new_menu():
@@ -102,10 +102,11 @@ class new_menu():
 
                         self.SCREEN.fill(self.white)
 
-                        pygame.display.set_caption("Check?")
+                        pygame.display.set_caption("Press V to Return")
 
 
-                        background_img = pygame.image.load("Menu_images/Coral.jpeg")
+                        background_img = pygame.image.load("Menu_images/new.jpg")
+                        background_img = pygame.transform.scale(background_img,(1200, 700))
 
                         self.SCREEN.blit(background_img, (0,0))
 
@@ -120,7 +121,25 @@ class new_menu():
                                     return  # Exit the loop if 'x' key is pressed
 
                     elif event.key == pygame.K_z:
-                        about.run_text()
+                        #about.run_text()
+                        self.SCREEN.fill(self.white)
+
+                        pygame.display.set_caption("Press V to Return")
+
+
+                        background_img = pygame.image.load("Menu_images/about2.png")
+                        background_img = pygame.transform.scale(background_img,(1200, 700))
+
+                        self.SCREEN.blit(background_img, (0,0))
+
+                        pygame.display.update()
+
+                        running = True
+                        while running:
+                            for event in pygame.event.get():
+                                if event.type == pygame.KEYDOWN and event.key == pygame.K_v:
+                                    background_img = pygame.image.load("Menu_images/main.jpeg")
+                                    self.SCREEN.blit(background_img, (0,0))
 
                     elif event.key == pygame.K_y:
                         self.SCREEN.fill(self.white)
@@ -134,14 +153,16 @@ class new_menu():
 
                         pygame.display.update()
 
+
+
                         running = True
                         while running:
                             for event in pygame.event.get():
-                                if event.type == pygame.KEYDOWN and event.key == pygame.K_y:
-                                    background_img = pygame.image.load("Menu_images/seaweed.jpeg")
-                                    self.SCREEN.blit(background_img, (0,0))
-                                    break
-                                elif event.type == pygame.KEYDOWN and event.key == pygame.K_v:
+                                #if event.type == pygame.KEYDOWN and event.key == pygame.K_y:
+                                #    background_img = pygame.image.load("Menu_images/seaweed.jpeg")
+                                #    self.SCREEN.blit(background_img, (0,0))
+                                #    break
+                                if event.type == pygame.KEYDOWN and event.key == pygame.K_v:
                                     background_img = pygame.image.load("Menu_images/main.jpeg")
                                     self.SCREEN.blit(background_img, (0,0))
                                     return  # Exit the loop if 'x' key is pressed
