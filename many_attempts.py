@@ -32,13 +32,14 @@ bird1 = pygame.transform.scale(bird1, image_size)
 bird2 = pygame.transform.scale(bird2, image_size)
 bird3 = pygame.transform.scale(bird3, image_size)
 
-skyline = pygame.image.load("image/background.jpeg")
+skyline = pygame.image.load("Menu_images/background.JPG")
 skyline_image = pygame.transform.scale(skyline, (win_width, win_height))
 
 # Images
 bird_images = [bird1, bird2, bird3]
 #skyline_image = pygame.image.load("image/background.jpeg")
-ground_image = pygame.image.load("images/ground.png")
+#ground_image = pygame.image.load("images/ground.png")
+ground_image = pygame.image.load("Menu_images/ground.png")
 #top_pipe_image = pygame.image.load("images/pipe_top.png")
 #bottom_pipe_image = pygame.image.load("images/pipe_bottom.png")
 
@@ -72,14 +73,14 @@ start_image = pygame.image.load("images/start.png")
 extra_pipe_top = pygame.image.load("pipe/seaweed_top.png")
 extra_pipe_bottom = pygame.image.load("pipe/seaweed_btm.png")
 
-bubble_top = pygame.image.load("pipe/bubble_top.png")
-bubble_btm = pygame.image.load("pipe/bubble_btm.png")
+bubble_top = pygame.image.load("final_pipes/bubbles_top.png")
+bubble_btm = pygame.image.load("final_pipes/bubbles_btm.png")
 
 bubble_top = pygame.transform.scale(bubble_top, (150, 400))
 bubble_btm = pygame.transform.scale(bubble_btm, (150, 400))
 
-clam_open = pygame.image.load("pipe/clam_open.png")
-clam_closed = pygame.image.load("pipe/clam_closed.png")
+clam_open = pygame.image.load("final_pipes/clam_open.png")
+clam_closed = pygame.image.load("final_pipes/clam_closed.png")
 
 #clam_open = pygame.image.load("pipe/clam_open.png")
 #clam_closed = pygame.image.load("pipe/clam_closed.png")
@@ -236,7 +237,7 @@ def main():
     pipes = pygame.sprite.Group()
 
     # Instantiate Initial Ground
-    GROUND_WIDTH = 551
+    GROUND_WIDTH = 1004
     ground = pygame.sprite.Group()
     for i in range(win_width // GROUND_WIDTH + 2):
         ground.add(Ground(i * GROUND_WIDTH, win_height - ground_image.get_height()))
@@ -269,6 +270,8 @@ def main():
         ground.draw(window)
         bird.draw(window)
 
+        '''
+
         bird_rect_debug = pygame.Rect(bird.sprites()[0].rect)
         bird_rect_debug.inflate_ip(-2, -2)
         pygame.draw.rect(window, (255, 0, 0), bird_rect_debug, 2)
@@ -277,12 +280,14 @@ def main():
             pipe_rect_debug.inflate_ip(-2, -2)
             pygame.draw.rect(window, (0, 255, 0), pipe_rect_debug, 2)
 
+        '''
+
         # Show Score
         score_text = font.render('Score: ' + str(score), True, pygame.Color(255, 255, 255))
         #timer_text = font.render('Timer: ' + str(timer), True, pygame.Color(255, 255, 255))
 
         window.blit(score_text, (20, 20))
-        window.blit(timer_text, (300, 20))
+        #window.blit(timer_text, (300, 20))
 
         # Update - Pipes, Ground and Bird
         if bird.sprite.alive and not freeze_game:
